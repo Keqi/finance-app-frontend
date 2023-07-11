@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand navbar-light bg-light">
       <div className="container-fluid">
-        <span class="navbar-brand mr-5 h1">
+        <span className="navbar-brand mr-5 h1">
           <FontAwesomeIcon icon={faDollarSign} size="xl" />
         </span>
 
@@ -15,17 +15,17 @@ function Navbar() {
           <ul className="navbar-nav mr-auto">
             <NavbarLinkItem
               name="Data"
-              link="#"
+              link="/"
             />
 
             <NavbarLinkItem
               name="Charts"
-              link="#"
+              link="/charts"
             />
 
             <NavbarLinkItem
               name="Insert record"
-              link="#"
+              link="/insert-record"
             />
           </ul>
         </div>

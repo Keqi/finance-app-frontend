@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
+
 function NavbarLinkItem({name, link }) {
   return (
-    <li class="nav-item">
-      <a class="nav-link" href={link}>{name}</a>
+    <li className="nav-item">
+      <Link className="nav-link" to={link}>{name}</Link>
     </li>
   );
 }
