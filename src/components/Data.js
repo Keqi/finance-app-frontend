@@ -1,30 +1,24 @@
 import DataHeader from "./data/DataHeader"
 import DataRecord from "./data/DataRecord"
 
+import { useEffect, useState } from 'react';
+
 function Data() {
-  const initialData = [
-    {
-      date: 'Nov-2022',
-      etf: { capital: 0, total: 0 },
-      bonds: { capital: 15000, total: 15043.5 },
-      inflation: 0,
-      exchangeRate: 4.5
-    },
-    {
-      date: 'Dec-2022',
-      etf: { capital: 9300, total: 8787 },
-      bonds: { capital: 22500, total: 22674 },
-      inflation: 0.1,
-      exchangeRate: 4.4
-    },
-    {
-      date: 'Jan-2022',
-      etf: { capital: 13150, total: 13619.45 },
-      bonds: { capital: 38500, total: 38896.65 },
-      inflation: 2.6,
-      exchangeRate: 4.35
-    }
-  ];
+  const [financeRecords, setFinanceRecords] = useState([]);
+
+  const fetchFinanceRecords = async () => {
+    await fetch("http://localhost:3001/finance_records")
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setFinanceRecords(data)
+      })
+  }
+
+  useEffect(() => {
+    fetchFinanceRecords()
+  }, [])
 
   return (
     <div className="Data">
@@ -41,14 +35,14 @@ function Data() {
         <tbody>
           <DataHeader/>
 
-          {initialData.map((item, index)=>{
+          {financeRecords.map((item, index)=>{
             return <DataRecord
                      key={index}
                      date={item.date}
-                     etf={item.etf}
-                     bonds={item.bonds}
+                     etf={{capital: item.etf_capital, total: item.etf_total}}
+                     bonds={{capital: item.bonds_capital, total: item.bonds_total}}
                      inflation={item.inflation}
-                     exchangeRate={item.exchangeRate}
+                     exchangeRate={item.exchange_rate}
                    />
           })}
         </tbody>
