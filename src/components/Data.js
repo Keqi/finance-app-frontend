@@ -31,11 +31,11 @@ function Data() {
       <table className="table table-bordered mt-4">
         <thead>
           <tr className="text-center">
-            <th scope="col"></th>
-            <th scope="col" colSpan="4"><p>ETF (USD)</p></th>
-            <th scope="col" colSpan="4">Bonds (PLN)</th>
-            <th scope="col" colSpan="3">Distribution</th>
-            <th scope="col" colSpan="5">Total PLN</th>
+            <th className="fs-4" scope="col"></th>
+            <th className="fs-4" scope="col" colSpan="4">ETF (USD)</th>
+            <th className="fs-4" scope="col" colSpan="4">Bonds (PLN)</th>
+            <th className="fs-4" scope="col" colSpan="3">Distribution</th>
+            <th className="fs-4" scope="col" colSpan="5">Total PLN</th>
           </tr>
         </thead>
         <tbody>
@@ -43,6 +43,7 @@ function Data() {
 
           {initialData.map((item, index)=>{
             return <DataRecord
+                     key={index}
                      date={item.date}
                      etf={item.etf}
                      bonds={item.bonds}
