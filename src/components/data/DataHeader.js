@@ -21,6 +21,8 @@ function DataHeader() {
       <td className="fw-bolder">Profit PLN</td>
       <td className="fw-bolder">Profit %</td>
       <td className="fw-bolder">Accumulated Inflation</td>
+
+      <td className="fw-bolder"></td>
     </tr>
   );
 }

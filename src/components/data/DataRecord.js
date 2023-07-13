@@ -1,3 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
+
+import { Link } from 'react-router-dom';
+
 import {
   calculateBondsDistribution,
   calculateTotalValue,
@@ -6,7 +11,7 @@ import {
   calculatePercentageProfit
 } from "./../../utilities/calc"
 
-function DataRecord({date, etf, bonds, exchangeRate, inflation}) {
+function DataRecord({id, date, etf, bonds, exchangeRate, inflation, handleDelete}) {
   const bondsDistribution = calculateBondsDistribution(etf.total, bonds.total, exchangeRate);
   const bondsProfit = calculateProfit(bonds.capital, bonds.total);
   const bondsPercentageProfit = calculatePercentageProfit(bonds.capital, bonds.total);
@@ -24,7 +29,7 @@ function DataRecord({date, etf, bonds, exchangeRate, inflation}) {
   )
 
   return (
-    <tr className="text-center">
+    <tr id={`finance-record-${id}`} className="text-center">
       <td>{date}</td>
       <td>{etf.capital}</td>
       <td>{etf.total}</td>
@@ -45,6 +50,16 @@ function DataRecord({date, etf, bonds, exchangeRate, inflation}) {
       <td className={`text text-${totalProfit >= 0 ? "success" : "danger"}`}>{totalProfit}</td>
       <td className={`text text-${totalPercentageProfit >= 0 ? "success" : "danger"}`}>{totalPercentageProfit}</td>
       <td>{inflation}</td>
+
+      <td>
+        <Link to="/insert-record">
+          <FontAwesomeIcon className="m-2" icon={faPen} />
+        </Link>
+
+        <a href="/" record-id={id} onClick={handleDelete}>
+          <FontAwesomeIcon className="m-2" icon={faTrash}  />
+        </a>
+      </td>
     </tr>
   );
 }

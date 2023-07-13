@@ -16,6 +16,26 @@ function Data() {
       })
   }
 
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    const recordId = event.target.parentElement.parentElement.getAttribute("record-id");
+
+    try {
+      let response = await fetch(`http://localhost:3001/finance_records/${recordId}`, {
+        method: "DELETE",
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.status === 200) {
+        fetchFinanceRecords();
+      } else {
+        console.log("API request failed.")
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     fetchFinanceRecords()
   }, [])
@@ -30,6 +50,7 @@ function Data() {
             <th className="fs-4" scope="col" colSpan="4">Bonds (PLN)</th>
             <th className="fs-4" scope="col" colSpan="3">Distribution</th>
             <th className="fs-4" scope="col" colSpan="5">Total PLN</th>
+            <th className="fs-4" scope="col" colSpan="1">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -37,12 +58,14 @@ function Data() {
 
           {financeRecords.map((item, index)=>{
             return <DataRecord
-                     key={index}
-                     date={item.date}
+                     id={item.id}
+                     key={item.id}
+                     date={item.formatted_date}
                      etf={{capital: item.etf_capital, total: item.etf_total}}
                      bonds={{capital: item.bonds_capital, total: item.bonds_total}}
                      inflation={item.inflation}
                      exchangeRate={item.exchange_rate}
+                     handleDelete={handleDelete}
                    />
           })}
         </tbody>

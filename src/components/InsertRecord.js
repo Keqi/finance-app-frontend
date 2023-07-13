@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import { useNavigate } from "react-router-dom";
 
 function InsertRecord() {
   const [formData, setFormData] = useState({
@@ -10,6 +11,8 @@ function InsertRecord() {
     inflation: '',
     date: ''
   });
+
+  const navigate = useNavigate();
 
 	const handleChange = (event) => {
     const { id, value } = event.target;
@@ -28,7 +31,7 @@ function InsertRecord() {
       });
 
       if (response.status === 200) {
-        console.log("API request processed successfully.");
+        navigate("/");
       } else {
         console.log("API request failed.")
       }
@@ -100,7 +103,7 @@ function InsertRecord() {
           <div className="col-6">
             <div className="mb-3">
               <label htmlFor="date" className="form-label">Date</label>
-              <input type="date" value={formData.date} onChange={handleChange} className="form-control" id="date" aria-describedby="dateHelp"/>
+              <input type="date" value={formData.date} onChange={handleChange} className="form-control" id="date" aria-describedby="dateHelp" required/>
             </div>
           </div>
         </div>
