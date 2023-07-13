@@ -15,5 +15,5 @@ export function calculateETFDistribution(etfTotal, bondsTotal, exchangeRate) {
 }
 
 export function calculateTotalValue(etf, bonds, exchangeRate) {
-  return bonds + etf * exchangeRate;
+  return (bonds + etf * exchangeRate).toFixed(2);
 }
