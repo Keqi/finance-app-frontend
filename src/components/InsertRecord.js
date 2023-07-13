@@ -6,11 +6,11 @@ function InsertRecord() {
   const location = useLocation();
 
   const [formData, setFormData] = useState({
-    etfCapital: location.state ? location.state.etfCapital : '',
-    etfTotal: location.state ? location.state.etfTotal : '',
-    bondsCapital: location.state ? location.state.bondsCapital : '',
-    bondsTotal: location.state ? location.state.bondsTotal : '',
-    exchangeRate: location.state ? location.state.exchangeRate : '',
+    etf_capital: location.state ? location.state.etf_capital : '',
+    etf_total: location.state ? location.state.etf_total : '',
+    bonds_capital: location.state ? location.state.bonds_capital : '',
+    bonds_total: location.state ? location.state.bonds_total : '',
+    exchange_rate: location.state ? location.state.exchange_rate : '',
     inflation: location.state ? location.state.inflation : '',
     date: location.state ? location.state.date : ''
   });
@@ -60,7 +60,7 @@ function InsertRecord() {
           <div className="col-6">
             <div className="mb-3">
               <label htmlFor="etfCapital" className="form-label">ETF Capital</label>
-              <input type="number" value={formData.etfCapital} onChange={handleChange} className="form-control" id="etfCapital" aria-describedby="etfCapitalHelp"/>
+              <input type="number" value={formData.etf_capital} onChange={handleChange} className="form-control" id="etf_capital" aria-describedby="etfCapitalHelp"/>
               <div id="etfCapitalHelp" className="form-text">Provide your capital in ETF.</div>
             </div>
           </div>
@@ -68,7 +68,7 @@ function InsertRecord() {
           <div className="col-6">
             <div className="mb-3">
               <label htmlFor="etfTotal" className="form-label">ETF Total</label>
-              <input type="number" value={formData.etfTotal} onChange={handleChange} className="form-control" id="etfTotal" aria-describedby="etfTotalHelp"/>
+              <input type="number" value={formData.etf_total} onChange={handleChange} className="form-control" id="etf_total" aria-describedby="etfTotalHelp"/>
               <div id="etfTotalHelp" className="form-text">Provide your total value in ETF.</div>
             </div>
           </div>
@@ -78,7 +78,7 @@ function InsertRecord() {
           <div className="col-6">
             <div className="mb-3">
               <label htmlFor="bondsCapital" className="form-label">Bonds Capital</label>
-              <input type="number" value={formData.bondsCapital} onChange={handleChange} className="form-control" id="bondsCapital" aria-describedby="bondsCapitalHelp"/>
+              <input type="number" value={formData.bonds_capital} onChange={handleChange} className="form-control" id="bonds_capital" aria-describedby="bondsCapitalHelp"/>
               <div id="bondsCapitalHelp" className="form-text">Provide your capital value in bonds.</div>
             </div>
           </div>
@@ -86,7 +86,7 @@ function InsertRecord() {
           <div className="col-6">
             <div className="mb-3">
               <label htmlFor="bondsTotal" className="form-label">Bonds Total</label>
-              <input type="number" value={formData.bondsTotal} onChange={handleChange} className="form-control" id="bondsTotal" aria-describedby="bondsTotalHelp"/>
+              <input type="number" value={formData.bonds_total} onChange={handleChange} className="form-control" id="bonds_total" aria-describedby="bondsTotalHelp"/>
               <div id="bondsTotalHelp" className="form-text">Provide your total value in bonds.</div>
             </div>
           </div>
@@ -98,7 +98,7 @@ function InsertRecord() {
           <div className="col-6">
             <div className="mb-3">
               <label htmlFor="exchangeRate" className="form-label">Exchange Rate</label>
-              <input type="number" value={formData.exchangeRate} onChange={handleChange} className="form-control" id="exchangeRate" aria-describedby="exchangeRateHelp"/>
+              <input type="number" value={formData.exchange_rate} onChange={handleChange} className="form-control" id="exchange_rate" aria-describedby="exchangeRateHelp"/>
               <div id="exchangeRateHelp" className="form-text">USD/PLN exchange rate.</div>
             </div>
           </div>

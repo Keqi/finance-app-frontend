@@ -60,7 +60,7 @@ function Data() {
             return <DataRecord
                      id={item.id}
                      key={item.id}
-                     date={item.formatted_date}
+                     date={item.date}
                      etf={{capital: item.etf_capital, total: item.etf_total}}
                      bonds={{capital: item.bonds_capital, total: item.bonds_total}}
                      inflation={item.inflation}

@@ -57,11 +57,11 @@ function DataRecord({id, date, etf, bonds, exchangeRate, inflation, handleDelete
           state={
             {
               id: id,
-              etfCapital: etf.capital,
-              etfTotal: etf.total,
-              bondsCapital: bonds.capital,
-              bondsTotal: bonds.total,
-              exchangeRate: exchangeRate,
+              etf_capital: etf.capital,
+              etf_total: etf.total,
+              bonds_capital: bonds.capital,
+              bonds_total: bonds.total,
+              exchange_rate: exchangeRate,
               inflation: inflation,
               date: date
             }
