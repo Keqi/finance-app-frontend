@@ -7,7 +7,8 @@ function InsertRecord() {
     bondsCapital: '',
     bondsTotal: '',
     exchangeRate: '',
-    inflation: ''
+    inflation: '',
+    date: ''
   });
 
 	const handleChange = (event) => {
@@ -16,10 +17,24 @@ function InsertRecord() {
     setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
 	};
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(formData);
+    try {
+      let response = await fetch("http://localhost:3001/finance_records", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.status === 200) {
+        console.log("API request processed successfully.");
+      } else {
+        console.log("API request failed.")
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -77,6 +92,15 @@ function InsertRecord() {
               <label htmlFor="inflation" className="form-label">Inflation</label>
               <input type="number" value={formData.inflation} onChange={handleChange} className="form-control" id="inflation" aria-describedby="inflationHelp"/>
               <div id="inflationHelp" className="form-text">Accumulated inflation since the beginning of investments.</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-6">
+            <div className="mb-3">
+              <label htmlFor="date" className="form-label">Date</label>
+              <input type="date" value={formData.date} onChange={handleChange} className="form-control" id="date" aria-describedby="dateHelp"/>
             </div>
           </div>
         </div>
