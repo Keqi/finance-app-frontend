@@ -52,7 +52,21 @@ function DataRecord({id, date, etf, bonds, exchangeRate, inflation, handleDelete
       <td>{inflation}</td>
 
       <td>
-        <Link to="/insert-record">
+        <Link
+          to="/insert-record"
+          state={
+            {
+              id: id,
+              etfCapital: etf.capital,
+              etfTotal: etf.total,
+              bondsCapital: bonds.capital,
+              bondsTotal: bonds.total,
+              exchangeRate: exchangeRate,
+              inflation: inflation,
+              date: date
+            }
+          }>
+
           <FontAwesomeIcon className="m-2" icon={faPen} />
         </Link>
 

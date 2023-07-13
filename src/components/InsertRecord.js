@@ -1,18 +1,19 @@
 import {useState} from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function InsertRecord() {
-  const [formData, setFormData] = useState({
-    etfCapital: '',
-    etfTotal: '',
-    bondsCapital: '',
-    bondsTotal: '',
-    exchangeRate: '',
-    inflation: '',
-    date: ''
-  });
-
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [formData, setFormData] = useState({
+    etfCapital: location.state ? location.state.etfCapital : '',
+    etfTotal: location.state ? location.state.etfTotal : '',
+    bondsCapital: location.state ? location.state.bondsCapital : '',
+    bondsTotal: location.state ? location.state.bondsTotal : '',
+    exchangeRate: location.state ? location.state.exchangeRate : '',
+    inflation: location.state ? location.state.inflation : '',
+    date: location.state ? location.state.date : ''
+  });
 
 	const handleChange = (event) => {
     const { id, value } = event.target;
@@ -23,9 +24,21 @@ function InsertRecord() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const recordId = location.state ? location.state.id : undefined;
+    let url;
+    let method;
+
     try {
-      let response = await fetch("http://localhost:3001/finance_records", {
-        method: "POST",
+      if(recordId) {
+        url = `http://localhost:3001/finance_records/${recordId}`
+        method = "PUT"
+      } else {
+        url = "http://localhost:3001/finance_records"
+        method = "POST"
+      }
+
+      let response = await fetch(url, {
+        method: method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
