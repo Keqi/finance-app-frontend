@@ -37,8 +37,6 @@ function InsertRecord() {
         method = "POST"
       }
 
-      console.log(url)
-
       let response = await fetch(url, {
         method: method,
         headers: { 'Content-Type': 'application/json' },
