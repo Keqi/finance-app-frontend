@@ -6,6 +6,7 @@ function InsertRecord() {
   const location = useLocation();
 
   const [formData, setFormData] = useState({
+    id: location.state ? location.state.id : undefined,
     etf_capital: location.state ? location.state.etf_capital : '',
     etf_total: location.state ? location.state.etf_total : '',
     bonds_capital: location.state ? location.state.bonds_capital : '',
@@ -24,18 +25,19 @@ function InsertRecord() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const recordId = location.state ? location.state.id : undefined;
     let url;
     let method;
 
     try {
-      if(recordId) {
-        url = `http://localhost:3001/finance_records/${recordId}`
+      if(formData.id) {
+        url = `${process.env.REACT_APP_BACKEND_HOST}/finance_records/${formData.id}`
         method = "PUT"
       } else {
-        url = "http://localhost:3001/finance_records"
+        url = `${process.env.REACT_APP_BACKEND_HOST}/finance_records`
         method = "POST"
       }
+
+      console.log(url)
 
       let response = await fetch(url, {
         method: method,

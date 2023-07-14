@@ -7,7 +7,7 @@ function Data() {
   const [financeRecords, setFinanceRecords] = useState([]);
 
   const fetchFinanceRecords = async () => {
-    await fetch("http://localhost:3001/finance_records")
+    await fetch(`${process.env.REACT_APP_BACKEND_HOST}/finance_records`)
       .then(response => {
         return response.json()
       })
@@ -21,7 +21,7 @@ function Data() {
     const recordId = event.target.parentElement.parentElement.getAttribute("record-id");
 
     try {
-      let response = await fetch(`http://localhost:3001/finance_records/${recordId}`, {
+      let response = await fetch(`${process.env.REACT_APP_BACKEND_HOST}/finance_records/${recordId}`, {
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
       });
