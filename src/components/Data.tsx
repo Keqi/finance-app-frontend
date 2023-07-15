@@ -1,5 +1,7 @@
 import DataHeader from "./data/DataHeader"
 import DataRecord from "./data/DataRecord"
+import FinanceRecord from './../utilities/finance_record'
+import { FinanceRecordInterface } from './../interfaces/interfaces'
 
 import { useEffect, useState } from 'react';
 
@@ -12,11 +14,11 @@ function Data() {
         return response.json()
       })
       .then(data => {
-        setFinanceRecords(data)
+        setFinanceRecords(data.map((record: FinanceRecordInterface) => new FinanceRecord(record)))
       })
   }
 
-  const handleDelete = async (event) => {
+  const handleDelete = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const recordId = event.target.parentElement.parentElement.getAttribute("record-id");
 
@@ -46,11 +48,11 @@ function Data() {
         <thead>
           <tr className="text-center">
             <th className="fs-4" scope="col"></th>
-            <th className="fs-4" scope="col" colSpan="4">ETF (USD)</th>
-            <th className="fs-4" scope="col" colSpan="4">Bonds (PLN)</th>
-            <th className="fs-4" scope="col" colSpan="3">Distribution</th>
-            <th className="fs-4" scope="col" colSpan="5">Total PLN</th>
-            <th className="fs-4" scope="col" colSpan="1">Actions</th>
+            <th className="fs-4" scope="col" colSpan={4}>ETF (USD)</th>
+            <th className="fs-4" scope="col" colSpan={4}>Bonds (PLN)</th>
+            <th className="fs-4" scope="col" colSpan={3}>Distribution</th>
+            <th className="fs-4" scope="col" colSpan={5}>Total PLN</th>
+            <th className="fs-4" scope="col" colSpan={1}>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -58,13 +60,8 @@ function Data() {
 
           {financeRecords.map((item, index)=>{
             return <DataRecord
-                     id={item.id}
                      key={item.id}
-                     date={item.date}
-                     etf={{capital: item.etf_capital, total: item.etf_total}}
-                     bonds={{capital: item.bonds_capital, total: item.bonds_total}}
-                     inflation={item.inflation}
-                     exchangeRate={item.exchange_rate}
+                     financeRecord={item}
                      handleDelete={handleDelete}
                    />
           })}

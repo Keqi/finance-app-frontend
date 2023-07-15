@@ -1,26 +1,21 @@
 import { Chart, registerables } from 'chart.js';
-import { Line } from "react-chartjs-2";
-import { calculateTotalValue } from "./../../utilities/calc"
+import { Bar } from "react-chartjs-2";
+import { FinanceRecordInterface, FinanceRecordListInterface } from './../../interfaces/interfaces'
+import FinanceRecord from './../../utilities/finance_record'
 
-function TotalAndCapital({financeRecords}) {
+function Profit({financeRecords}: FinanceRecordListInterface) {
   Chart.register(...registerables);
 
   return (
-    <Line
+    <Bar
       data={{
         labels: financeRecords.map(record => record.date),
         datasets: [
           {
             label: 'Total',
-            backgroundColor: "red",
-            borderColor: "red",
-            data: financeRecords.map(record => calculateTotalValue(record.etf_total, record.bonds_total, record.exchange_rate)),
-          },
-          {
-            label: 'Capital',
             backgroundColor: "blue",
             borderColor: "blue",
-            data: financeRecords.map(record => calculateTotalValue(record.etf_capital, record.bonds_capital, record.exchange_rate)),
+            data: financeRecords.map(record => record.totalProfit())
           }
         ]
       }}
@@ -30,7 +25,7 @@ function TotalAndCapital({financeRecords}) {
         plugins: {
           title: {
             display: true,
-            text: 'Total vs Capital'
+            text: 'Profit (PLN)'
           },
           legend: {
               display: true
@@ -41,7 +36,7 @@ function TotalAndCapital({financeRecords}) {
             title: { display: true, text: 'Date' }
           },
           y: {
-              title: { display: true, text: 'Value (PLN)' }
+              title: { display: true, text: 'Profit (PLN)' }
           }
         }
       }}
@@ -49,4 +44,4 @@ function TotalAndCapital({financeRecords}) {
   );
 }
 
-export default TotalAndCapital;
+export default Profit;

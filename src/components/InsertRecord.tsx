@@ -16,13 +16,13 @@ function InsertRecord() {
     date: location.state ? location.state.date : ''
   });
 
-	const handleChange = (event) => {
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
 
     setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
 	};
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     let url;

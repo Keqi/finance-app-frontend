@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import TotalAndCapital from './charts/TotalAndCapital'
 import Profit from './charts/Profit'
 import ProfitAndInflation from './charts/ProfitAndInflation'
+import FinanceRecord from './../utilities/finance_record'
+import { FinanceRecordInterface } from './../interfaces/interfaces'
 
 function Charts() {
   const [financeRecords, setFinanceRecords] = useState([]);
@@ -13,7 +15,7 @@ function Charts() {
         return response.json()
       })
       .then(data => {
-        setFinanceRecords(data)
+        setFinanceRecords(data.map((record: FinanceRecordInterface) => new FinanceRecord(record)))
       })
   }
 
