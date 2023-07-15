@@ -1,5 +1,7 @@
 import DataHeader from "./data/DataHeader"
 import DataRecord from "./data/DataRecord"
+import FinanceRecord from './../utilities/finance_record'
+import { FinanceRecordInterface } from './../interfaces/interfaces'
 
 import { useEffect, useState } from 'react';
 
@@ -12,7 +14,7 @@ function Data() {
         return response.json()
       })
       .then(data => {
-        setFinanceRecords(data)
+        setFinanceRecords(data.map((record: FinanceRecordInterface) => new FinanceRecord(record)))
       })
   }
 

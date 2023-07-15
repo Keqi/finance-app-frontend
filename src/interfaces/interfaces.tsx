@@ -7,6 +7,17 @@ export interface FinanceRecordInterface {
   exchange_rate: number;
   inflation: number;
   date: string;
+
+  bondsDistribution: () => number;
+  bondsProfit: () => number;
+  bondsPercentageProfit: () => number;
+  capitalValue: () => number;
+  etfDistribution: () => number;
+  etfProfit: () => number;
+  etfPercentageProfit: () => number;
+  totalProfit: () => number;
+  totalPercentageProfit: () => number;
+  totalValue: () => number;
 }
 
 export interface FinanceRecordListInterface {
