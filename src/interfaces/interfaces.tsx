@@ -1,3 +1,8 @@
+export interface DataRecordInterface {
+  financeRecord: FinanceRecordInterface;
+  handleDelete: (event: any) => void;
+}
+
 export interface FinanceRecordInterface {
   id: number;
   etf_capital: number;

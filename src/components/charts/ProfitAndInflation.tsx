@@ -1,7 +1,6 @@
 import { Chart, registerables } from 'chart.js';
 import { Line } from "react-chartjs-2";
-import { FinanceRecordInterface, FinanceRecordListInterface } from './../../interfaces/interfaces'
-import FinanceRecord from './../../utilities/finance_record'
+import { FinanceRecordListInterface } from './../../interfaces/interfaces'
 
 function ProfitAndInflation({financeRecords}: FinanceRecordListInterface) {
   Chart.register(...registerables);

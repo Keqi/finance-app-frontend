@@ -2,9 +2,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
 
 import { Link } from 'react-router-dom';
+import { DataRecordInterface } from './../../interfaces/interfaces'
 
 // I need to refactor this class to use TS types
-function DataRecord({financeRecord, handleDelete}: any) {
+function DataRecord({financeRecord, handleDelete}: DataRecordInterface) {
   return (
     <tr id={`finance-record-${financeRecord.id}`} className="text-center">
       <td>{financeRecord.date}</td>
