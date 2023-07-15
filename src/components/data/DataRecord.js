@@ -11,66 +11,68 @@ import {
   calculatePercentageProfit
 } from "./../../utilities/calc"
 
-function DataRecord({id, date, etf, bonds, exchangeRate, inflation, handleDelete}) {
-  const bondsDistribution = calculateBondsDistribution(etf.total, bonds.total, exchangeRate);
-  const bondsProfit = calculateProfit(bonds.capital, bonds.total);
-  const bondsPercentageProfit = calculatePercentageProfit(bonds.capital, bonds.total);
+import { FinanceRecordInterface } from './../../interfaces/interfaces'
 
-  const etfDistribution = calculateETFDistribution(etf.total, bonds.total, exchangeRate);
-  const etfProfit = calculateProfit(etf.capital, etf.total);
-  const etfPercentageProfit = calculatePercentageProfit(etf.capital, etf.total);
+function DataRecord({financeRecord, handleDelete}) {
+  const bondsDistribution = calculateBondsDistribution(financeRecord.etf_total, financeRecord.bonds_total, financeRecord.exchange_rate).toFixed(2);
+  const bondsProfit = calculateProfit(financeRecord.bonds_capital, financeRecord.bonds_total).toFixed(2);
+  const bondsPercentageProfit = calculatePercentageProfit(financeRecord.bonds_capital, financeRecord.bonds_total).toFixed(2);
+
+  const etfDistribution = calculateETFDistribution(financeRecord.etf_total, financeRecord.bonds_total, financeRecord.exchange_rate).toFixed(2);
+  const etfProfit = calculateProfit(financeRecord.etf_capital, financeRecord.etf_total).toFixed(2);
+  const etfPercentageProfit = calculatePercentageProfit(financeRecord.etf_capital, financeRecord.etf_total).toFixed(2);
 
   const totalProfit = calculateProfit(
-    calculateTotalValue(etf.capital, bonds.capital, exchangeRate), calculateTotalValue(etf.total, bonds.total, exchangeRate)
-  )
+    calculateTotalValue(financeRecord.etf_capital, financeRecord.bonds_capital, financeRecord.exchange_rate), calculateTotalValue(financeRecord.etf_total, financeRecord.bonds_total, financeRecord.exchange_rate)
+  ).toFixed(2)
 
   const totalPercentageProfit = calculatePercentageProfit(
-    calculateTotalValue(etf.capital, bonds.capital, exchangeRate), calculateTotalValue(etf.total, bonds.total, exchangeRate)
-  )
+    calculateTotalValue(financeRecord.etf_capital, financeRecord.bonds_capital, financeRecord.exchange_rate), calculateTotalValue(financeRecord.etf_total, financeRecord.bonds_total, financeRecord.exchange_rate)
+  ).toFixed(2)
 
   return (
-    <tr id={`finance-record-${id}`} className="text-center">
-      <td>{date}</td>
-      <td>{etf.capital}</td>
-      <td>{etf.total}</td>
+    <tr id={`finance-record-${financeRecord.id}`} className="text-center">
+      <td>{financeRecord.date}</td>
+      <td>{financeRecord.etf_capital}</td>
+      <td>{financeRecord.etf_total}</td>
       <td className={`text text-${etfProfit >= 0 ? "success" : "danger"}`}>{etfProfit}</td>
       <td className={`text text-${etfPercentageProfit >= 0 ? "success" : "danger"}`}>{etfPercentageProfit}</td>
 
-      <td>{bonds.capital}</td>
-      <td>{bonds.total}</td>
+      <td>{financeRecord.bonds_capital}</td>
+      <td>{financeRecord.bonds_total}</td>
       <td className={`text text-${bondsProfit >= 0 ? "success" : "danger"}`}>{bondsProfit}</td>
       <td className={`text text-${bondsPercentageProfit >= 0 ? "success" : "danger"}`}>{bondsPercentageProfit}</td>
 
       <td>{etfDistribution}</td>
       <td>{bondsDistribution}</td>
-      <td>{exchangeRate}</td>
+      <td>{financeRecord.exchange_rate}</td>
 
-      <td>{calculateTotalValue(etf.capital, bonds.capital, exchangeRate)}</td>
-      <td>{calculateTotalValue(etf.total, bonds.total, exchangeRate)}</td>
+      <td>{calculateTotalValue(financeRecord.etf_capital, financeRecord.bonds_capital, financeRecord.exchange_rate)}</td>
+      <td>{calculateTotalValue(financeRecord.etf_total, financeRecord.bonds_total, financeRecord.exchange_rate)}</td>
       <td className={`text text-${totalProfit >= 0 ? "success" : "danger"}`}>{totalProfit}</td>
       <td className={`text text-${totalPercentageProfit >= 0 ? "success" : "danger"}`}>{totalPercentageProfit}</td>
-      <td>{inflation}</td>
+      <td>{financeRecord.inflation}</td>
 
       <td>
         <Link
           to="/insert-record"
           state={
             {
-              id: id,
-              etf_capital: etf.capital,
-              etf_total: etf.total,
-              bonds_capital: bonds.capital,
-              bonds_total: bonds.total,
-              exchange_rate: exchangeRate,
-              inflation: inflation,
-              date: date
+              id: financeRecord.id,
+              etf_capital: financeRecord.etf_capital,
+              etf_total: financeRecord.etf_total,
+              bonds_capital: financeRecord.bonds_capital,
+              bonds_total: financeRecord.bonds_total,
+              exchange_rate: financeRecord.exchange_rate,
+              inflation: financeRecord.inflation,
+              date: financeRecord.date
             }
           }>
 
           <FontAwesomeIcon className="m-2" icon={faPen} />
         </Link>
 
-        <a href="/" record-id={id} onClick={handleDelete}>
+        <a href="/" record-id={financeRecord.id} onClick={handleDelete}>
           <FontAwesomeIcon className="m-2" icon={faTrash}  />
         </a>
       </td>
