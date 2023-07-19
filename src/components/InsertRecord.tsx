@@ -59,15 +59,15 @@ function InsertRecord() {
         <div className="row">
           <div className="col-6">
             <div className="mb-3">
-              <label htmlFor="etfCapital" className="form-label">ETF Capital</label>
-              <input type="number" value={formData.etf_capital} onChange={handleChange} className="form-control" id="etf_capital" aria-describedby="etfCapitalHelp"/>
+              <label htmlFor="etf_capital" className="form-label">ETF Capital</label>
+              <input type="number" value={formData.etf_capital} onChange={handleChange} className="form-control" name="etf_capital" id="etf_capital" aria-describedby="etfCapitalHelp"/>
               <div id="etfCapitalHelp" className="form-text">Provide your capital in ETF.</div>
             </div>
           </div>
 
           <div className="col-6">
             <div className="mb-3">
-              <label htmlFor="etfTotal" className="form-label">ETF Total</label>
+              <label htmlFor="etf_total" className="form-label">ETF Total</label>
               <input type="number" value={formData.etf_total} onChange={handleChange} className="form-control" id="etf_total" aria-describedby="etfTotalHelp"/>
               <div id="etfTotalHelp" className="form-text">Provide your total value in ETF.</div>
             </div>
@@ -77,7 +77,7 @@ function InsertRecord() {
         <div className="row">
           <div className="col-6">
             <div className="mb-3">
-              <label htmlFor="bondsCapital" className="form-label">Bonds Capital</label>
+              <label htmlFor="bonds_capital" className="form-label">Bonds Capital</label>
               <input type="number" value={formData.bonds_capital} onChange={handleChange} className="form-control" id="bonds_capital" aria-describedby="bondsCapitalHelp"/>
               <div id="bondsCapitalHelp" className="form-text">Provide your capital value in bonds.</div>
             </div>
@@ -85,7 +85,7 @@ function InsertRecord() {
 
           <div className="col-6">
             <div className="mb-3">
-              <label htmlFor="bondsTotal" className="form-label">Bonds Total</label>
+              <label htmlFor="bonds_total" className="form-label">Bonds Total</label>
               <input type="number" value={formData.bonds_total} onChange={handleChange} className="form-control" id="bonds_total" aria-describedby="bondsTotalHelp"/>
               <div id="bondsTotalHelp" className="form-text">Provide your total value in bonds.</div>
             </div>
@@ -97,7 +97,7 @@ function InsertRecord() {
         <div className="row">
           <div className="col-6">
             <div className="mb-3">
-              <label htmlFor="exchangeRate" className="form-label">Exchange Rate</label>
+              <label htmlFor="exchange_rate" className="form-label">Exchange Rate</label>
               <input type="number" value={formData.exchange_rate} onChange={handleChange} className="form-control" id="exchange_rate" aria-describedby="exchangeRateHelp"/>
               <div id="exchangeRateHelp" className="form-text">USD/PLN exchange rate.</div>
             </div>
