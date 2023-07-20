@@ -44,12 +44,11 @@ function InsertRecord() {
       });
 
       if (response.status === 200) {
-        navigate("/");
+        navigate("/", { state: { alert: { class: 'success', message: 'You have successfully created/updated record.' }}});
       } else {
         console.log("API request failed.")
       }
     } catch (err) {
-      console.log(err);
     }
   };
 

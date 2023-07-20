@@ -53,6 +53,7 @@
     }
   },
   "devDependencies": {
+    "msw": "^1.2.2",
     "react-test-renderer": "^18.2.0"
   }
 }

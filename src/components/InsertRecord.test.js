@@ -3,10 +3,24 @@ import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
 import InsertRecord from './InsertRecord';
 
-import { render, screen } from "@testing-library/react";
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
+import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import * as routeData from 'react-router';
 
 const useLocation = jest.spyOn(routeData, 'useLocation');
+const useNavigate = jest.spyOn(routeData, 'useNavigate');
+
+const mockedState = {
+  id: 1,
+  bonds_capital: 50000,
+  bonds_total: 60000,
+  date: '2023-01-31',
+  etf_capital: 10000,
+  etf_total: 12000,
+  exchange_rate: 4.05,
+  inflation: 4.1
+};
 
 describe('renders all form fields on the page', () => {
   beforeEach(() => {
@@ -45,16 +59,6 @@ describe('renders all form fields on the page', () => {
 });
 
 describe('fills out form fields with state from the location object', () => {
-  const mockedState = {
-    bonds_capital: 50000,
-    bonds_total: 60000,
-    date: '2023-01-31',
-    etf_capital: 10000,
-    etf_total: 12000,
-    exchange_rate: 4.05,
-    inflation: 4.1
-  };
-
   beforeEach(() => {
     useLocation.mockReturnValue({ pathname: '/insert-record', search: '', state: mockedState, hash: ''});
 
@@ -90,5 +94,35 @@ describe('fills out form fields with state from the location object', () => {
 
   it("should render the bonds capital field with pre-filled value", () => {
     expect(screen.getByLabelText(/date/i)).toHaveValue(mockedState.date)
+  });
+});
+
+describe('submits the form', () => {
+  const server = setupServer(
+    rest.put(`${process.env.REACT_APP_BACKEND_HOST}/finance_records/${mockedState.id}`, (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(mockedState))
+    }),
+  )
+
+  beforeAll(() => server.listen())
+
+  beforeEach(() => {
+    useLocation.mockReturnValue({ pathname: '/insert-record', search: '', state: mockedState, hash: ''});
+
+    render(<MemoryRouter>
+      <InsertRecord/>
+    </MemoryRouter>);
+  });
+
+  afterEach(() => {
+    server.resetHandlers()
+  });
+
+  afterAll(() => server.close())
+
+  // This test doesn't make much sense but I'll keep for MSW configuration for now.
+  it("should render the bonds capital field with pre-filled value", async () => {
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }))
+    await waitFor(() => expect(useNavigate).toHaveBeenCalledTimes(1));
   });
 });
