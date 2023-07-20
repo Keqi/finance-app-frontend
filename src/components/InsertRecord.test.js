@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
 import InsertRecord from './InsertRecord';
 
-import { rest } from 'msw'
-import { setupServer } from 'msw/node'
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import * as routeData from 'react-router';
 
@@ -98,14 +96,6 @@ describe('fills out form fields with state from the location object', () => {
 });
 
 describe('submits the form', () => {
-  const server = setupServer(
-    rest.put(`${process.env.REACT_APP_BACKEND_HOST}/finance_records/${mockedState.id}`, (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json(mockedState))
-    }),
-  )
-
-  beforeAll(() => server.listen())
-
   beforeEach(() => {
     useLocation.mockReturnValue({ pathname: '/insert-record', search: '', state: mockedState, hash: ''});
 
@@ -113,12 +103,6 @@ describe('submits the form', () => {
       <InsertRecord/>
     </MemoryRouter>);
   });
-
-  afterEach(() => {
-    server.resetHandlers()
-  });
-
-  afterAll(() => server.close())
 
   // This test doesn't make much sense but I'll keep for MSW configuration for now.
   it("should render the bonds capital field with pre-filled value", async () => {
